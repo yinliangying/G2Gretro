@@ -47,6 +47,7 @@ from urllib.parse import urlparse, parse_qs
 
 from torch.utils.data import DataLoader
 from retroformer.dataset import RetroDataset
+from urllib.parse import unquote
 
 # 定义请求处理程序
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
@@ -68,10 +69,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # 构造响应内容
         try:
             http_tmp_data_folder="./data/http_data"
-
-            json_str=query_params["json_str"]
+            encoded_value=query_params["encoded_value"]
+            json_str = unquote(encoded_value)
             json_dict=json.loads(json_str)
-            smiles_list=json_dict["smiles"]
+            smiles_list=json_dict["smiles_list"]
             if os.path.exists(http_tmp_data_folder):
                 os.rmdir(http_tmp_data_folder)
             os.mkdir(http_tmp_data_folder)
