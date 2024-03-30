@@ -12,8 +12,10 @@ def send_get_request(path, query_params=None):
     print(f"Response Body:\n{response.read().decode('utf-8')}")
 
 # 测试 GET 请求
+import json
 print("Sending GET request...")
-send_get_request("/", {"smiles_list": ["C=C1COC1CC=CC","Cc1ccc2oc-2co1","C=C1C#CC(CC)=CO1","CCC1COCOC1C","C=C1CCOC(C)O1",
+json_str=json.dumps({"smiles_list": ["C=C1COC1CC=CC","Cc1ccc2oc-2co1","C=C1C#CC(CC)=CO1","CCC1COCOC1C","C=C1CCOC(C)O1",
                                        "CCOC=COCOCC","CC1(C)CC2COC1C2","C=CCC(=C)OC(C)OC","CCOC(COC)OCC","C=CC1=CCC#COC1",
                                        "C=COC=CC(=C)COC","CC12CC13COCC3O2","CCC(C)=CCC(C)=O","COC12C#CCCC1C2","C#CC1(C)CC#CC1=O"]})
+send_get_request("/", {"json_str":json_str})
 print()

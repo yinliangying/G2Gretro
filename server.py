@@ -69,7 +69,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         try:
             http_tmp_data_folder="./data/http_data"
 
-            smiles_list=query_params["smile_list"]
+            json_str=query_params["json_str"]
+            json_dict=json.loads(json_str)
+            smiles_list=json_dict["smiles"]
             if os.path.exists(http_tmp_data_folder):
                 os.rmdir(http_tmp_data_folder)
             os.mkdir(http_tmp_data_folder)
