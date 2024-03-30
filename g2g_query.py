@@ -12,7 +12,7 @@ def send_get_request(path, query_params=None):
     print(f"Response Status: {response.status}")
     return response.read().decode('utf-8')
 
-def get_ASKCOS_one_step_retro_topN(smiles):
+def get_ASKCOS_one_step_retro_topN(smiles,topN):
     json_str = json.dumps(
         {"smiles_list": [smiles]})
     encoded_value = quote(json_str)
@@ -32,6 +32,8 @@ def get_ASKCOS_one_step_retro_topN(smiles):
               'smiles_split':r_smiles_list,
          'smiles':r_smiles, 'score':-1000*idx}
         return_list.append(data)
+        if len(return_list)==topN:
+            break
     return return_list
 
 
