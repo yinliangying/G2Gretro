@@ -78,7 +78,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             id_list=[]
             rxn_smiles_list=[]
             for id_,smiles in enumerate(smiles_list):
-                rxn_smiles="%s>>C"%(smiles)
+                rxn_smiles="C>>%s"%(smiles)
                 id_list.append(id_)
                 rxn_smiles_list.append(rxn_smiles)
             df = pd.DataFrame({
