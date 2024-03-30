@@ -73,7 +73,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             json_dict=json.loads(encoded_value[0])
             smiles_list=json_dict["smiles_list"]
             if os.path.exists(http_tmp_data_folder):
-                os.rmdir(http_tmp_data_folder)
+                os.system("rm -r %s"%http_tmp_data_folder)
             os.mkdir(http_tmp_data_folder)
             id_list=[]
             rxn_smiles_list=[]
