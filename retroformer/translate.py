@@ -144,7 +144,22 @@ def main(args):
     output_path = os.path.join(args.intermediate_dir, file_name)
     print('Output path: {}'.format(output_path))
 
+    # import pandas
+    # src_smiles_list = []
+    # tgt_smiles_list = []
+    # for batch in tqdm(iterator, total=len(iterator)):
+    #     src, tgt, _, _, _ = batch
+    #
+    #     for idx in range(batch[0].shape[1]):
+    #         src_smiles = ''.join(dataset.reconstruct_smi(src[:, idx], src=True))
+    #         gt = ''.join(dataset.reconstruct_smi(tgt[:, idx], src=False))
+    #         src_smiles_list.append(src_smiles)
+    #         tgt_smiles_list.append(gt)
+    # df = pandas.DataFrame({"src_smiles": src_smiles_list, "tgt_smiles": tgt_smiles_list})
+    # df.to_csv("./retro_test.csv")
+
     # Begin Translating:
+    # ground_truths  smiles list length=len(dataset)  ;generations array list length=len(dataset). array is smiles array ,length is beam_size
     ground_truths, generations = translate(iterator, model, dataset)
     accuracy_matrix = np.zeros((len(ground_truths), args.beam_size))
     for i in range(len(ground_truths)):
