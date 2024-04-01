@@ -151,9 +151,11 @@ def main(args):
     #     src, tgt, _, _, _ = batch
     #
     #     for idx in range(batch[0].shape[1]):
-    #         src_smiles = ''.join(dataset.reconstruct_smi(src[:, idx], src=True))
+    #         src_smiles = ''.join(dataset.reconstruct_smi(src[:, idx], src=True))[5:] #<UNK>CC(=O)c1ccc2c(ccn2C(=O)OC(C)(C)C)c1
     #         gt = ''.join(dataset.reconstruct_smi(tgt[:, idx], src=False))
+    #
     #         src_smiles_list.append(src_smiles)
+    #
     #         tgt_smiles_list.append(gt)
     # df = pandas.DataFrame({"src_smiles": src_smiles_list, "tgt_smiles": tgt_smiles_list})
     # df.to_csv("./retro_test.csv")
