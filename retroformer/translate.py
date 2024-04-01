@@ -48,6 +48,7 @@ args = parser.parse_args()
 def translate(iterator, model, dataset):
     ground_truths = []
     generations = []
+    generations_score=[]
     invalid_token_indices = [dataset.tgt_stoi['<RX_{}>'.format(i)] for i in range(1, 11)]
     invalid_token_indices += [dataset.tgt_stoi['<UNK>'], dataset.tgt_stoi['<unk>']]
     # Translate:
@@ -64,9 +65,12 @@ def translate(iterator, model, dataset):
                 hypo_len = np.array([len(smi_tokenizer(ht)) for ht in hypos])
                 new_pred_score = copy.deepcopy(pred_scores[idx]).cpu().numpy() / hypo_len
                 ordering = np.argsort(new_pred_score)[::-1]
-
+                #preserved_num=np.sum(new_pred_score > -0.1)
+                generations_score.append(np.sort(new_pred_score)[::-1].tolist())
                 ground_truths.append(gt)
-                generations.append(hypos[ordering])
+                generations.append(hypos[ordering][:].tolist())
+                import pdb
+                pdb.set_trace()
         else:
             # Stepwise Main:
             # untyped: T=10; beta=0.5, percent_aa=40, percent_ab=40
@@ -123,7 +127,7 @@ def translate(iterator, model, dataset):
                 ground_truths.append(gt)
                 generations.append(np.array(hypo_i)[ordering])
 
-    return ground_truths, generations
+    return ground_truths, generations,generations_score
 
 
 def main(args):
@@ -162,7 +166,7 @@ def main(args):
 
     # Begin Translating:
     # ground_truths  smiles list length=len(dataset)  ;generations array list length=len(dataset). array is smiles array ,length is beam_size
-    ground_truths, generations = translate(iterator, model, dataset)
+    ground_truths, generations,_ = translate(iterator, model, dataset)
     accuracy_matrix = np.zeros((len(ground_truths), args.beam_size))
     for i in range(len(ground_truths)):
         gt_i = canonical_smiles(ground_truths[i])

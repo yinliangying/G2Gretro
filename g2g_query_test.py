@@ -38,7 +38,7 @@ def get_ASKCOS_one_step_retro_topN(smiles,topN):
 
 
 if __name__=="__main__":
-    aa=get_ASKCOS_one_step_retro_topN("CC1(C)CC2COC1C2")
+    aa=get_ASKCOS_one_step_retro_topN("CC1(C)CC2COC1C2",10)
     print(aa)
     exit()
 
