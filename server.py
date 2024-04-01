@@ -95,14 +95,15 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             src_pad, tgt_pad = dataset.src_stoi['<pad>'], dataset.tgt_stoi['<pad>']
             iterator = DataLoader(dataset, batch_size=args.batch_size_val, shuffle=False,  # num_workers=8,
                                    collate_fn=partial(collate_fn, src_pad=src_pad, tgt_pad=tgt_pad, device=args.device))
-            ground_truths, generations = translate(iterator, model, dataset)
+            ground_truths, generations,generations_score = translate(iterator, model, dataset)
 
             if len(generations)!=len(smiles_list):
                 raise Exception
-
+            import pdb
+            pdb.set_trace()
             result_list=[]
-            for r in generations:
-                result_list.append(r.tolist())
+            for rr,ss in zip(generations,generations_score):
+                result_list.append(list(zip(rr,ss)))
             message=json.dumps(result_list)
         except:
             self.send_error(404, "error")
