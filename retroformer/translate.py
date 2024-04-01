@@ -69,8 +69,7 @@ def translate(iterator, model, dataset):
                 generations_score.append(np.sort(new_pred_score)[::-1].tolist())
                 ground_truths.append(gt)
                 generations.append(hypos[ordering][:].tolist())
-                import pdb
-                pdb.set_trace()
+
         else:
             # Stepwise Main:
             # untyped: T=10; beta=0.5, percent_aa=40, percent_ab=40

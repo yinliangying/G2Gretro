@@ -99,8 +99,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
             if len(generations)!=len(smiles_list):
                 raise Exception
-            import pdb
-            pdb.set_trace()
+
             result_list=[]
             for rr,ss in zip(generations,generations_score):
                 result_list.append(list(zip(rr,ss)))

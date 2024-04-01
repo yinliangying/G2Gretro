@@ -21,7 +21,8 @@ def get_ASKCOS_one_step_retro_topN(smiles,topN):
     condicate_smiles_list=result_list[0]
 
     return_list=[]
-    for idx,r_smiles in enumerate(condicate_smiles_list):
+    for idx,r_pair in enumerate(condicate_smiles_list):
+        r_smiles,score=r_pair
         r_smiles_list=r_smiles.split(".")
         data={'necessary_reagent':"",
               'tforms':[],
@@ -30,7 +31,7 @@ def get_ASKCOS_one_step_retro_topN(smiles,topN):
               'rank':idx+1,
               'num_examples':100,
               'smiles_split':r_smiles_list,
-         'smiles':r_smiles, 'score':-1000*idx}
+         'smiles':r_smiles, 'score':score}
         return_list.append(data)
         if len(return_list)==topN:
             break
